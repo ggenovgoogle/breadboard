@@ -443,7 +443,7 @@ export class Template extends SignalWatcher(LitElement) implements AppTemplate {
         `Share link copied to clipboard`,
         SnackType.INFORMATION,
         [],
-        false,
+        false, // persistent
         true
       )
     );
@@ -538,7 +538,7 @@ export class Template extends SignalWatcher(LitElement) implements AppTemplate {
         `Saving results to your Google Drive...`,
         SnackType.PENDING,
         [],
-        true,
+        false, // persistent
         true
       )
     );
@@ -628,7 +628,7 @@ export class Template extends SignalWatcher(LitElement) implements AppTemplate {
                 },
               },
             ],
-            true,
+            true, // persistent
             true
           )
         );
@@ -690,7 +690,7 @@ export class Template extends SignalWatcher(LitElement) implements AppTemplate {
           `Error packaging results prior to saving`,
           SnackType.ERROR,
           [],
-          true,
+          true, // persistent
           true
         )
       );
@@ -703,7 +703,7 @@ export class Template extends SignalWatcher(LitElement) implements AppTemplate {
         `Saving results to your Google Drive...`,
         SnackType.PENDING,
         [],
-        true,
+        false, // persistent
         true
       )
     );
@@ -722,7 +722,7 @@ export class Template extends SignalWatcher(LitElement) implements AppTemplate {
           `Error saving results to your Google Drive`,
           SnackType.ERROR,
           [],
-          true,
+          true, // persistent
           true
         )
       );
@@ -736,7 +736,7 @@ export class Template extends SignalWatcher(LitElement) implements AppTemplate {
         `Publishing results...`,
         SnackType.PENDING,
         [],
-        true,
+        false, // persistent
         true
       )
     );
@@ -750,7 +750,7 @@ export class Template extends SignalWatcher(LitElement) implements AppTemplate {
           `Error publishing results from your Google Drive`,
           SnackType.ERROR,
           [],
-          true,
+          true, // persistent
           true
         )
       );

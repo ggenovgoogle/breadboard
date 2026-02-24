@@ -106,17 +106,19 @@ export class SnackbarController extends RootController {
   }
 
   /**
-   * Updates an existing snackbar's message and type.
+   * Updates an existing snackbar's message, type, and optionally persistent flag.
    *
    * @param id The snackbar ID to update
    * @param message The new message
    * @param type The new type
+   * @param persistent If provided, updates the snackbar's persistent flag
    * @returns True if the snackbar was found and updated
    */
   update(
     id: SnackbarUUID,
     message: string | HTMLTemplateResult,
-    type: SnackType
+    type: SnackType,
+    persistent?: boolean
   ): boolean {
     const snackbar = this._snackbars.get(id);
     if (!snackbar) {
@@ -127,6 +129,7 @@ export class SnackbarController extends RootController {
       ...snackbar,
       message,
       type,
+      ...(persistent !== undefined && { persistent }),
     };
 
     this._snackbars.set(id, updated);
