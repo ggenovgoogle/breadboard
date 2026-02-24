@@ -4,9 +4,8 @@ trigger: always_on
 
 ## Build System
 
-Monorepo using wireit. `package.json` commands invoke the full build system.
-`npm run build` / `npm run build:tsc` builds all deps then compiles.
-`npm run test` builds deps then runs tests.
+Monorepo using wireit. `npm run build` / `npm run build:tsc` builds all deps
+then compiles. `npm run test` builds deps then runs tests.
 
 When making changes, check if the user has `npm run build --watch` running. If
 not, prompt them to start one. Use its output to verify compilation instead of
@@ -78,6 +77,15 @@ into an Action. This makes the behavior testable without the DOM.
 
 The repo uses `signal-polyfill` and `signal-utils` as its signal infrastructure.
 
+## Decision Making
+
+Follow established principles over cautious defaults. This codebase has PRs,
+code review, and a rollback strategy. When an established principle (e.g.,
+"error, not warning") conflicts with a cautious instinct (e.g., "this might
+break the build"), follow the principle and find a compatible solution — don't
+silently downgrade the principle. If there's a genuine reason to deviate,
+surface the tension explicitly rather than making the choice unilaterally.
+
 ## Coding Conventions
 
 Use ES Module syntax. Define exports explicitly at the top of the file, right
@@ -136,14 +144,13 @@ in `.agent/skills/` with detailed instructions.
 ## Tests
 
 Use Node's built-in test framework (`node:test`). Tests run in Node, not a
-browser. If the code under test references DOM globals (`document`, `window`,
-etc.), call `setDOM()` from `tests/fake-dom.ts` in `beforeEach` and `unsetDOM()`
-in `afterEach` to ensure a clean environment between tests. Modules must never
-access DOM globals at the module level (e.g., top-level
-`document.createElement`) — defer all DOM access to function bodies so the
-module can be imported safely in Node. Name tests as `[source-file].test.ts` in
-`packages/[package]/tests/`. In `packages/visual-editor`, mirror `src/sca/`
-structure under `tests/sca/`.
+browser. Name tests as `[source-file].test.ts` in `packages/[package]/tests/`.
+In `packages/visual-editor`, mirror `src/sca/` structure under `tests/sca/`.
+
+For DOM globals (`document`, `window`, etc.): call `setDOM()` from
+`tests/fake-dom.ts` in `beforeEach` and `unsetDOM()` in `afterEach`. Never
+access DOM globals at the module level — defer to function bodies so modules
+import safely in Node.
 
 ### Mocking
 
